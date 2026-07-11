@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Notion systems for creators who monetize — affiliate ops, agent control planes, revenue pipelines." />
+  <meta name="theme-color" content="#0b0f14" />
+  <title>Errrmind — Notion Systems Portfolio</title>
+  <style>
+    :root {
+      --bg: #0b0f14;
+      --bg2: #121820;
+      --card: #161d27;
+      --line: #243041;
+      --text: #e8eef7;
+      --muted: #9aabbf;
+      --accent: #5b9cff;
+      --accent2: #3dd6c6;
+      --warn: #f0b429;
+      --radius: 16px;
+      --shadow: 0 20px 50px rgba(0,0,0,.35);
+      --font: "Segoe UI", system-ui, -apple-system, sans-serif;
+      --mono: ui-monospace, "Cascadia Code", Consolas, monospace;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: var(--font);
+      background:
+        radial-gradient(1200px 600px at 10% -10%, rgba(91,156,255,.18), transparent 55%),
+        radial-gradient(900px 500px at 100% 0%, rgba(61,214,198,.12), transparent 50%),
+        var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+      min-height: 100vh;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .wrap { width: min(1080px, calc(100% - 2rem)); margin: 0 auto; }
+    header.hero {
+      padding: 4.5rem 0 2.5rem;
+      border-bottom: 1px solid var(--line);
+    }
+    .badge {
+      display: inline-flex;
+      gap: .45rem;
+      align-items: center;
+      font-size: .78rem;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      color: var(--accent2);
+      background: rgba(61,214,198,.1);
+      border: 1px solid rgba(61,214,198,.25);
+      padding: .35rem .7rem;
+      border-radius: 999px;
+      margin-bottom: 1.1rem;
+    }
+    h1 {
+      font-size: clamp(2rem, 4.5vw, 3rem);
+      line-height: 1.12;
+      margin: 0 0 .9rem;
+      letter-spacing: -.02em;
+    }
+    .lead {
+      font-size: 1.12rem;
+      color: var(--muted);
+      max-width: 46rem;
+      margin: 0 0 1.6rem;
+    }
+    .cta-row { display: flex; flex-wrap: wrap; gap: .75rem; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: .45rem;
+      padding: .75rem 1.15rem;
+      border-radius: 12px;
+      font-weight: 600;
+      border: 1px solid transparent;
+      cursor: pointer;
+      text-decoration: none !important;
+      transition: transform .15s ease, background .15s ease, border-color .15s ease;
+    }
+    .btn:hover { transform: translateY(-1px); }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), #7b6cff);
+      color: #fff;
+    }
+    .btn-ghost {
+      background: transparent;
+      color: var(--text);
+      border-color: var(--line);
+    }
+    .btn-ghost:hover { border-color: var(--accent); }
+    nav.sticky {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(12px);
+      background: rgba(11,15,20,.75);
+      border-bottom: 1px solid var(--line);
+    }
+    nav.sticky .wrap {
+      display: flex;
+      gap: 1rem;
+      overflow-x: auto;
+      padding: .7rem 0;
+      font-size: .92rem;
+    }
+    nav a { color: var(--muted); white-space: nowrap; }
+    nav a:hover { color: var(--text); }
+    section { padding: 3.2rem 0; border-bottom: 1px solid var(--line); }
+    section h2 {
+      margin: 0 0 .4rem;
+      font-size: 1.55rem;
+      letter-spacing: -.01em;
+    }
+    .sub { color: var(--muted); margin: 0 0 1.5rem; max-width: 40rem; }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 1rem;
+    }
+    .card {
+      background: linear-gradient(180deg, rgba(255,255,255,.02), transparent 40%), var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.3rem;
+      box-shadow: var(--shadow);
+    }
+    .card h3 { margin: 0 0 .45rem; font-size: 1.1rem; }
+    .card p { margin: 0; color: var(--muted); font-size: .95rem; }
+    .span-4 { grid-column: span 4; }
+    .span-6 { grid-column: span 6; }
+    .span-8 { grid-column: span 8; }
+    .span-12 { grid-column: span 12; }
+    @media (max-width: 860px) {
+      .span-4, .span-6, .span-8 { grid-column: span 12; }
+    }
+    .price {
+      display: inline-block;
+      margin-top: .85rem;
+      font-family: var(--mono);
+      font-size: .85rem;
+      color: var(--warn);
+      background: rgba(240,180,41,.1);
+      border: 1px solid rgba(240,180,41,.25);
+      padding: .25rem .55rem;
+      border-radius: 8px;
+    }
+    .tag {
+      display: inline-block;
+      font-size: .75rem;
+      color: var(--muted);
+      border: 1px solid var(--line);
+      padding: .15rem .45rem;
+      border-radius: 6px;
+      margin: 0 .35rem .35rem 0;
+    }
+    ol.steps {
+      margin: 0;
+      padding-left: 1.2rem;
+      color: var(--muted);
+    }
+    ol.steps li { margin: .45rem 0; }
+    ol.steps strong { color: var(--text); }
+    .table-wrap { overflow-x: auto; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: .92rem;
+    }
+    th, td {
+      text-align: left;
+      padding: .7rem .65rem;
+      border-bottom: 1px solid var(--line);
+      vertical-align: top;
+    }
+    th { color: var(--muted); font-weight: 600; font-size: .8rem; text-transform: uppercase; letter-spacing: .04em; }
+    code, .mono { font-family: var(--mono); font-size: .88em; }
+    .note {
+      border-left: 3px solid var(--accent2);
+      padding: .6rem 0 .6rem 1rem;
+      color: var(--muted);
+      margin: 1rem 0 0;
+      font-size: .92rem;
+    }
+    footer {
+      padding: 2.5rem 0 3.5rem;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    footer .row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .config {
+      background: var(--bg2);
+      border: 1px dashed var(--line);
+      border-radius: 12px;
+      padding: 1rem;
+      margin-top: 1.25rem;
+      font-size: .85rem;
+      color: var(--muted);
+    }
+    .config summary {
+      cursor: pointer;
+      color: var(--text);
+      font-weight: 600;
+    }
+    .config pre {
+      margin: .75rem 0 0;
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-family: var(--mono);
+      font-size: .78rem;
+      color: #c5d4e8;
+    }
+  </style>
+</head>
+<body>
+  <!--
+    SINGLE-FILE PORTFOLIO — drag this file to username.github.io as index.html
+    Edit CONFIG below (or the CONFIG object in the script) to set your live URLs.
+  -->
+  <header class="hero">
+    <div class="wrap">
+      <div class="badge"><span>●</span> Notion systems · creator revenue</div>
+      <h1 id="site-name">Errrmind</h1>
+      <p class="lead" id="site-tagline">
+        I build Notion systems for people who actually monetize:
+        affiliate tracking, AI agent ops, and creator revenue pipelines —
+        not another aesthetic life OS.
+      </p>
+      <div class="cta-row">
+        <a class="btn btn-primary" id="cta-github" href="https://github.com/Errrmind/notion-profit-os" target="_blank" rel="noopener">GitHub · notion-profit-os</a>
+        <a class="btn btn-ghost" id="cta-notion" href="https://www.notion.com" target="_blank" rel="noopener">Get Notion</a>
+        <a class="btn btn-ghost" href="#products">Products</a>
+      </div>
+      <p class="note" id="affiliate-note" hidden>
+        Affiliate disclosure: if you sign up for Notion through my link, I may earn a commission at no extra cost to you.
+      </p>
+    </div>
+  </header>
+
+  <nav class="sticky" aria-label="Section navigation">
+    <div class="wrap">
+      <a href="#products">Products</a>
+      <a href="#stack">Profit stack</a>
+      <a href="#math">Marketplace math</a>
+      <a href="#proof">Build proof</a>
+      <a href="#contact">Contact / links</a>
+      <a href="#upload">Upload guide</a>
+    </div>
+  </nav>
+
+  <main>
+    <section id="products">
+      <div class="wrap">
+        <h2>Products</h2>
+        <p class="sub">Ship free trust first. Paid systems next. Services only after installable demos.</p>
+        <div class="grid">
+          <article class="card span-4">
+            <span class="tag">Free</span>
+            <h3>Free Mini Link Tracker</h3>
+            <p>One Notion database for affiliate / promo links by channel + Active view. 2-minute Start here. SAMPLE rows you can wipe.</p>
+            <div class="price">$0 · Marketplace free</div>
+            <p style="margin-top:.9rem"><a id="link-free-mini" href="#" data-empty="true">Add listing URL →</a></p>
+          </article>
+          <article class="card span-4">
+            <span class="tag">Paid</span>
+            <h3>Affiliate Command</h3>
+            <p>Links · Content pipeline · Weekly performance · Payouts. Dual-CTA SOPs for creators running PartnerStack-style programs.</p>
+            <div class="price">$19 launch · $29 standard</div>
+            <p style="margin-top:.9rem"><a id="link-affiliate-command" href="#" data-empty="true">Add Gumroad / Marketplace URL →</a></p>
+          </article>
+          <article class="card span-4">
+            <span class="tag">Next</span>
+            <h3>Agent Ops HQ</h3>
+            <p>Control plane for AI agents in Notion: agents, tools, runs, prompts, incidents. Built for MCP / Workers-style stacks.</p>
+            <div class="price">$39–$59 · coming</div>
+            <p style="margin-top:.9rem"><a id="link-agent-ops" href="#" data-empty="true">Coming soon</a></p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="stack">
+      <div class="wrap">
+        <h2>Profit stack (order of commitment)</h2>
+        <p class="sub">Ascending cost and bureaucracy. Do not skip to Solutions Partner first.</p>
+        <div class="grid">
+          <div class="card span-6">
+            <ol class="steps">
+              <li><strong>Affiliate</strong> — PartnerStack; up to $50 activated signup + 20% year-1 revenue (verify apply live).</li>
+              <li><strong>Marketplace templates</strong> — official native fee <span class="mono">8% + $0.40</span>/txn; biweekly; $20 min.</li>
+              <li><strong>Setup Sessions</strong> — paid 1:1 installs after one template is demoable.</li>
+              <li><strong>Solutions Partner</strong> — later only: entity + portfolio + certs.</li>
+            </ol>
+          </div>
+          <div class="card span-6">
+            <h3>Operating rule</h3>
+            <p>Dual CTA on every asset:</p>
+            <p style="margin-top:.7rem;color:var(--text)"><span class="mono">free value → paid template → Notion affiliate + disclosure</span></p>
+            <p class="note">Stripe Marketplace waitlist can take weeks–months. Ship paid on Gumroad in parallel. Never idle on a waitlist.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="math">
+      <div class="wrap">
+        <h2>Marketplace fee math (official shape)</h2>
+        <p class="sub">US net ≈ price × 0.92 − 0.40. Prefer list prices ≥ $19 so the fixed fee does not dominate.</p>
+        <div class="card span-12 table-wrap">
+          <table>
+            <thead>
+              <tr><th>List price</th><th>8% fee</th><th>+ $0.40</th><th>Approx net (US)</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>$19</td><td>$1.52</td><td>$1.92</td><td>~$17.08</td></tr>
+              <tr><td>$29</td><td>$2.32</td><td>$2.72</td><td>~$26.28</td></tr>
+              <tr><td>$49</td><td>$3.92</td><td>$4.32</td><td>~$44.68</td></tr>
+            </tbody>
+          </table>
+          <p class="note">Confirm live fees in Notion creator help / dashboard. No income guarantees — cold start needs shipping + distribution.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="proof">
+      <div class="wrap">
+        <h2>Build proof</h2>
+        <p class="sub">Public engineering surface + private Notion product masters.</p>
+        <div class="grid">
+          <div class="card span-6">
+            <h3>GitHub</h3>
+            <p>Execution playbooks, fee math, product specs for the Notion monetization OS.</p>
+            <p style="margin-top:.8rem"><a href="https://github.com/Errrmind/notion-profit-os" target="_blank" rel="noopener">github.com/Errrmind/notion-profit-os</a></p>
+          </div>
+          <div class="card span-6">
+            <h3>What I will not sell</h3>
+            <p>Generic habit trackers, ultimate life OS clones, $5 junk templates, or “passive income guaranteed” packs. Systems with empty states, SAMPLE wipe instructions, and honest scope.</p>
+          </div>
+          <div class="card span-12">
+            <h3>Capabilities</h3>
+            <span class="tag">Notion templates</span>
+            <span class="tag">Affiliate ops</span>
+            <span class="tag">Agent / MCP workflows</span>
+            <span class="tag">Workers-style tooling</span>
+            <span class="tag">Creator revenue systems</span>
+            <span class="tag">Setup sessions (later)</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="wrap">
+        <h2>Links</h2>
+        <p class="sub">Update CONFIG in this file after you publish Marketplace / Gumroad / PartnerStack URLs.</p>
+        <div class="grid">
+          <div class="card span-4">
+            <h3>GitHub</h3>
+            <p><a id="link-github" href="https://github.com/Errrmind" target="_blank" rel="noopener">github.com/Errrmind</a></p>
+          </div>
+          <div class="card span-4">
+            <h3>Notion</h3>
+            <p><a id="link-notion-cta" href="https://www.notion.com" target="_blank" rel="noopener">notion.com</a></p>
+          </div>
+          <div class="card span-4">
+            <h3>Email / X</h3>
+            <p id="link-social">Add your handle in CONFIG</p>
+          </div>
+        </div>
+
+        <details class="config" id="upload">
+          <summary>CONFIG + GitHub Pages upload (no git / no CLI)</summary>
+          <pre id="config-display"></pre>
+          <p class="note" style="margin-top:1rem">
+            <strong>Upload:</strong> Create a public repo named exactly <span class="mono">YOURUSER.github.io</span>
+            (Settings → Pages → Deploy from branch main / root). Via github.com web UI:
+            Add file → Upload files → drag <span class="mono">index.html</span> → Commit.
+            Site: <span class="mono">https://YOURUSER.github.io/</span>
+          </p>
+        </details>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap row">
+      <div>© <span id="year"></span> <span id="footer-name">Errrmind</span> · Single-file static portfolio</div>
+      <div>No income guarantees · Official Marketplace fee shape: 8% + $0.40</div>
+    </div>
+  </footer>
+
+  <script>
+    /**
+     * ========== EDIT THESE URLS AFTER YOU SHIP ==========
+     * Leave empty strings ("") until you have a real link.
+     * PartnerStack affiliate URL enables disclosure + hero CTA.
+     */
+    const CONFIG = {
+      name: "Errrmind",
+      tagline: "I build Notion systems for people who actually monetize: affiliate tracking, AI agent ops, and creator revenue pipelines — not another aesthetic life OS.",
+      githubUser: "https://github.com/Errrmind",
+      githubRepo: "https://github.com/Errrmind/notion-profit-os",
+      // After PartnerStack approval — full tracking URL
+      notionAffiliate: "",
+      // After Marketplace free approval or public site
+      freeMini: "",
+      // Gumroad or Marketplace paid
+      affiliateCommand: "",
+      agentOps: "",
+      // Optional
+      xOrEmail: "",
+      showAffiliateDisclosure: true
+    };
+
+    (function applyConfig(c) {
+      const year = document.getElementById("year");
+      if (year) year.textContent = String(new Date().getFullYear());
+
+      document.getElementById("site-name").textContent = c.name;
+      document.getElementById("footer-name").textContent = c.name;
+      document.getElementById("site-tagline").textContent = c.tagline;
+      document.title = c.name + " — Notion Systems Portfolio";
+
+      const gh = document.getElementById("cta-github");
+      gh.href = c.githubRepo || c.githubUser;
+      document.getElementById("link-github").href = c.githubUser;
+      document.getElementById("link-github").textContent = (c.githubUser || "").replace(/^https?:\/\//, "");
+
+      const notionCta = document.getElementById("cta-notion");
+      const notionLink = document.getElementById("link-notion-cta");
+      const affNote = document.getElementById("affiliate-note");
+      if (c.notionAffiliate) {
+        notionCta.href = c.notionAffiliate;
+        notionCta.textContent = "Get Notion (affiliate)";
+        notionLink.href = c.notionAffiliate;
+        if (c.showAffiliateDisclosure) affNote.hidden = false;
+      }
+
+      function wire(id, url, emptyLabel) {
+        const el = document.getElementById(id);
+        if (!el) return;
+        if (url) {
+          el.href = url;
+          el.removeAttribute("data-empty");
+          el.textContent = "Open →";
+          el.target = "_blank";
+          el.rel = "noopener";
+        } else {
+          el.href = "#contact";
+          el.setAttribute("data-empty", "true");
+          el.textContent = emptyLabel || "Add URL in CONFIG →";
+        }
+      }
+      wire("link-free-mini", c.freeMini, "Add free listing URL in CONFIG →");
+      wire("link-affiliate-command", c.affiliateCommand, "Add Gumroad / Marketplace URL in CONFIG →");
+      wire("link-agent-ops", c.agentOps, "Coming soon");
+
+      const social = document.getElementById("link-social");
+      if (c.xOrEmail) {
+        if (c.xOrEmail.includes("@") && !c.xOrEmail.startsWith("http")) {
+          social.innerHTML = '<a href="mailto:' + c.xOrEmail + '">' + c.xOrEmail + "</a>";
+        } else {
+          social.innerHTML = '<a href="' + c.xOrEmail + '" target="_blank" rel="noopener">' + c.xOrEmail + "</a>";
+        }
+      }
+
+      document.getElementById("config-display").textContent =
+        "Edit CONFIG in index.html (search for const CONFIG).\n\n" +
+        JSON.stringify(c, null, 2) +
+        "\n\nUpload path:\n1. github.com/new → public repo YOURUSER.github.io\n2. Add file → Upload files → drag index.html\n3. Settings → Pages → Deploy from branch (main, / root)\n4. Visit https://YOURUSER.github.io/";
+    })(CONFIG);
+  </script>
+</body>
+</html>
